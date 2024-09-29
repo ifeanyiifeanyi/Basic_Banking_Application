@@ -29,6 +29,18 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name . ' ' . $this->other_name ?? '';
+    }
+
+    public function getPhotoAttribute($value)
+    {
+        return empty($value) ? asset('users/assets/images/users/avatar-9.jpg') : asset($value);
+    }
+
+    
     /**
      * The attributes that should be hidden for serialization.
      *
