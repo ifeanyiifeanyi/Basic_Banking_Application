@@ -23,8 +23,23 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $first_name = fake()->firstNameMale();
         return [
-            'name' => fake()->name(),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'other_name' => $first_name,
+            'username' => fake()->userName(),
+            'phone' => fake()->phoneNumber(),
+            'photo' => 'https://placehold.co/600x400.png',
+            'city' => fake()->city(),
+            'state' => fake()->citySuffix(),
+            'country' => fake()->country(),
+            'address' => fake()->address(),
+            'zip' => fake()->postcode(),
+            'dob' => fake()->date('Y-m-d'),
+            'gender' => 'Male',
+            'role' => 'admin',
+            'occupation' => fake()->jobTitle(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

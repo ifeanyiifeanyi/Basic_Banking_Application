@@ -11,18 +11,15 @@
         </div>
     </div>
     <div class="sidebar-user">
-        <img src="assets/images/users/avatar-6.jpg" alt="user" class="mb-1 rounded-circle img-thumbnail">
-        <h6 class="">Mr. Michael Hill </h6>
-        <p class=" online-icon text-dark"><i class="mdi mdi-record text-success"></i>online</p>
+        <img src="{{ auth()->user()->photo }}" alt="user" class="mb-1 rounded-circle img-thumbnail">
+        <h6 class="">{{ auth()->user()->full_name }}</h6>
+        <p class=" online-icon text-dark"><i class="mdi mdi-record text-success"></i>{{ auth()->user()->last_login ?? '' }}</p>
         <ul class="mt-2 mb-0 list-unstyled list-inline">
             <li class="list-inline-item">
-                <a href="#" class="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="dripicons-user text-purple"></i></a>
+                <a href="{{ route('admin.profile') }}" class="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="dripicons-user text-purple"></i></a>
             </li>
             <li class="list-inline-item">
                 <a href="#" class="" data-toggle="tooltip" data-placement="top" title="Settings"><i class="dripicons-gear text-dark"></i></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="" data-toggle="tooltip" data-placement="top" title="Log out"><i class="dripicons-power text-danger"></i></a>
             </li>
         </ul>
     </div>
