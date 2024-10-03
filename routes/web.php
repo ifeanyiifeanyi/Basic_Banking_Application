@@ -22,7 +22,7 @@ Route::get('/dashboard', MainDashboard::class)->name('dashboard');
         Route::controller(AdminProfileController::class)->group(function(){
             Route::get('profile', 'index')->name('admin.profile');
             Route::get('edit-profile', 'edit')->name('admin.edit-profile');
-            Route::put('update-profile', 'update')->name('admin.profile.update');
+            Route::put('update-profile/{user}', 'update')->name('admin.profile.update');
             Route::post('upload-avatar', 'uploadAvatar')->name('admin.upload-avatar');
         });
 

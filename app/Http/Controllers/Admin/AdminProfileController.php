@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -52,9 +53,26 @@ class AdminProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateProfileRequest $request, User $user)
     {
-        //
+        // dd($user);
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $old_image = $user->photo;
+
+            if (!empty($old_image) && file_exists(public_path($old_image))) {
+                unlink(public_path($old_image));
+            }
+
+            $thumb = $request->file('photo');
+            $extension = $thumb->getClientOriginalExtension();
+            $profilePhoto = time() . "." . $extension;
+            $thumb->move('admin/profile/', $profilePhoto);
+            $user->photo = 'admin/profile/' . $profilePhoto;
+        } elseif (empty($admin->photo)) {
+            return back()->withErrors(['photo' => 'The image field is required.']);
+        }
     }
 
     /**

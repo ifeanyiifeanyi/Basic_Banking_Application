@@ -23,7 +23,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.profile.update', $user) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -155,13 +155,13 @@
                                         <select class="form-control @error('gender') is-invalid @enderror" id="gender"
                                             name="gender">
                                             <option value="">Choose...</option>
-                                            <option value="male"
+                                            <option value="Male"
                                                 {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>Male
                                             </option>
-                                            <option value="female"
+                                            <option value="Female"
                                                 {{ old('gender', $user->gender) == 'Female' ? 'selected' : '' }}>Female
                                             </option>
-                                            <option value="other"
+                                            <option value="Other"
                                                 {{ old('gender', $user->gender) == 'Other' ? 'selected' : '' }}>Other
                                             </option>
                                         </select>
@@ -186,34 +186,114 @@
                             <div class="mb-4">
                                 <h6 class="fw-bold">Profile Photo</h6>
                                 <div class="row g-3">
-                                    <div class="col-md-6 mb-4">
-                                        @if ($user->photo)
-                                            <div class="mb-2">
-                                                <img src="{{ $user->photo }}"
-                                                    alt="Current profile photo" class="img-thumbnail"
-                                                    style="max-width: 150px;">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-3">
+                                                    @if ($user->photo)
+                                                        <img src="{{ $user->photo }}" alt="Current profile photo"
+                                                            id="currentProfileImage" class="img-thumbnail"
+                                                            style="max-width: 150px; height: auto;">
+                                                    @else
+                                                        <div id="currentProfileImage"
+                                                            class="bg-secondary text-white d-flex align-items-center justify-content-center"
+                                                            style="width: 150px; height: 150px;">
+                                                            No Image
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div>
+                                                    <div id="imagePreviewContainer" style="display: none;">
+                                                        <img id="imagePreview" class="img-thumbnail"
+                                                            style="max-width: 150px; height: auto;" alt="Image preview">
+                                                    </div>
+                                                </div>
                                             </div>
-                                        @endif
-                                        <input type="file" class="form-control @error('photo') is-invalid @enderror"
-                                            id="photo" name="photo" accept="image/*">
-                                        @error('photo')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="photo" class="form-label">Choose new photo</label>
+                                            <input type="file"
+                                                class="form-control @error('photo') is-invalid @enderror" id="photo"
+                                                name="photo" accept="image/*">
+                                            @error('photo')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-text">Maximum file size: 2MB. Supported formats: JPG, PNG, GIF.
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-danger mt-2" id="removePhotoBtn"
+                                            style="display: none;">
+                                            Remove New Photo
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Update Profile</button>
-                                <a href="{{ route('admin.profile') }}" class="btn btn-secondary">Cancel</a>
-                            </div>
-                        </form>
                     </div>
+
+                    <div class="d-flex justify-content-between m-5">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <a href="{{ route('admin.profile') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
 
 @section('javascript')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const photoInput = document.getElementById('photo');
+            const imagePreview = document.getElementById('imagePreview');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+            const currentProfileImage = document.getElementById('currentProfileImage');
+            const removePhotoBtn = document.getElementById('removePhotoBtn');
+
+            photoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Show remove button
+                    removePhotoBtn.style.display = 'block';
+
+                    // Hide current profile image and show preview
+                    currentProfileImage.style.display = 'none';
+                    imagePreviewContainer.style.display = 'block';
+
+                    // Create preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    resetPreview();
+                }
+            });
+
+            removePhotoBtn.addEventListener('click', function() {
+                resetPreview();
+                photoInput.value = ''; // Clear the file input
+            });
+
+            function resetPreview() {
+                // Hide preview and remove button, show current profile image
+                imagePreviewContainer.style.display = 'none';
+                removePhotoBtn.style.display = 'none';
+                currentProfileImage.style.display = 'block';
+            }
+
+            // Optional: Add file size validation
+            photoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.size > 2 * 1024 * 1024) { // 2MB
+                    alert('File is too large. Maximum size is 2MB.');
+                    this.value = ''; // Clear the file input
+                    resetPreview();
+                }
+            });
+        });
+    </script>
+@endsection
