@@ -25,6 +25,7 @@ Route::get('/dashboard', MainDashboard::class)->name('dashboard');
             Route::put('update-profile/{user}', 'update')->name('admin.profile.update');
             Route::get('update-password', 'updatePasswordView')
             ->name('admin.update.password');
+            Route::put('update-password', 'updatePassword')->name('admin.password.update');
         });
 
     });
