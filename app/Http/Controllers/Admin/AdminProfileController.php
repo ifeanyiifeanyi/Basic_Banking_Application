@@ -78,6 +78,10 @@ class AdminProfileController extends Controller
  
     }
 
+    public function updatePasswordView(){
+        return view('admin.profile.password_view');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

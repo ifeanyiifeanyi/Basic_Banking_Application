@@ -19,7 +19,7 @@
                 <a href="{{ route('admin.profile') }}" class="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="dripicons-user text-purple"></i></a>
             </li>
             <li class="list-inline-item">
-                <a href="{{ route('admin.edit-profile') }}" class="" data-toggle="tooltip" data-placement="top" title="Settings"><i class="dripicons-gear text-dark"></i></a>
+                <a href="{{ route('admin.update.password') }}" class="" data-toggle="tooltip" data-placement="top" title="Settings"><i class="dripicons-gear text-dark"></i></a>
             </li>
         </ul>
     </div>
