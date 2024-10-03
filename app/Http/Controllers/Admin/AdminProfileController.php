@@ -69,10 +69,13 @@ class AdminProfileController extends Controller
             $extension = $thumb->getClientOriginalExtension();
             $profilePhoto = time() . "." . $extension;
             $thumb->move('admin/profile/', $profilePhoto);
-            $user->photo = 'admin/profile/' . $profilePhoto;
-        } elseif (empty($admin->photo)) {
-            return back()->withErrors(['photo' => 'The image field is required.']);
-        }
+            $data['photo'] = 'admin/profile/' . $profilePhoto;
+        } 
+
+        $user->update($data);
+
+        return redirect()->route('admin.profile')->with('success', 'Profile updated successfully');
+ 
     }
 
     /**

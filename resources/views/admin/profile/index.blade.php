@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <td>Phone Number</td>
-                                    <td>{{ auth()->user()->phone_number ?? 'NA' }}</td>
+                                    <td>{{ auth()->user()->phone ?? 'NA' }}</td>
                                 </tr>
                                 <tr>
                                     <td>Date of Birth</td>
