@@ -44,9 +44,9 @@ class AdminProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit()
     {
-        //
+        return view('admin.profile.edit', ['user' => auth()->user()]);
     }
 
     /**

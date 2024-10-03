@@ -16,19 +16,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'other_name',
-        'username',
-        'email',
-        'photo',
-        'city',
-        'state',
-        'country',
-        'password',
-    ];
-
+    protected $guarded = [];
 
     public function getFullNameAttribute()
     {
@@ -40,7 +28,7 @@ class User extends Authenticatable
         return empty($value) ? asset('users/assets/images/users/avatar-9.jpg') : asset($value);
     }
 
-    
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -49,6 +37,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret'
     ];
 
     /**
@@ -61,6 +50,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'dob' => 'date',
+            'account_status' => 'boolean',
         ];
     }
 }
