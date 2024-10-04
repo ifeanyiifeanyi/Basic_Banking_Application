@@ -21,9 +21,12 @@
             <li class="list-inline-item">
                 <a href="{{ route('admin.update.password') }}" class="" data-toggle="tooltip" data-placement="top" title="Settings"><i class="dripicons-gear text-dark"></i></a>
             </li>
+            <li class="list-inline-item">
+                <a href="{{ route('profile.2fa') }}" class="" data-toggle="tooltip" data-placement="top" title="2fa"><i class="dripicons-wrong text-dark"></i></a>
+            </li>
         </ul>
     </div>
-
+    
     <div class="sidebar-inner slimscrollleft">
 
         <div id="sidebar-menu">

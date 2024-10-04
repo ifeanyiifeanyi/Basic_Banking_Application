@@ -8,6 +8,8 @@
 
 
 @section('admin')
+    <x-alert-info />
+
     <div class="row">
         <div class="col-md-4">
             <div class="card shadow">
@@ -18,7 +20,7 @@
                     <div class="text-center">
                         <h4 class="mb-2">{{ auth()->user()->full_name }}</h4>
                         <p class="text-muted">{{ auth()->user()->email }}</p>
-                        <p class="text-success">{{ Str::upper(auth()->user()->role) }} / {{auth()->user()->username}}</p>
+                        <p class="text-success">{{ Str::upper(auth()->user()->role) }} / {{ auth()->user()->username }}</p>
                     </div>
                     <hr>
                     <div class="text-center">

@@ -3,13 +3,23 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['username', 'email', 'two_factor_enabled'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -37,9 +47,51 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_secret'
-    ];
+        'two_factor_secret',
+        'two_factor_recovery_codes' => 'array',
 
+    ];
+    /**
+     * Get the recovery codes
+     *
+     * @return array
+     */
+    public function getRecoveryCodes()
+    {
+        return $this->two_factor_recovery_codes ?? [];
+    }
+
+    /**
+     * Set the recovery codes
+     *
+     * @param array $codes
+     * @return void
+     */
+    public function setRecoveryCodes(array $codes)
+    {
+        $this->two_factor_recovery_codes = $codes;
+    }
+
+    /**
+     * Use a recovery code
+     *
+     * @param string $code
+     * @return bool
+     */
+    public function useRecoveryCode(string $code)
+    {
+        $codes = $this->getRecoveryCodes();
+        $position = array_search($code, $codes);
+
+        if ($position !== false) {
+            unset($codes[$position]);
+            $this->setRecoveryCodes(array_values($codes));
+            $this->save();
+            return true;
+        }
+
+        return false;
+    }
     /**
      * Get the attributes that should be cast.
      *

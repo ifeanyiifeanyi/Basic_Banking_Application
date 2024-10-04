@@ -17,19 +17,9 @@
                 </div>
 
                 <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    <x-alert-info />
 
-                    @if(session('error'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
-                    <form id="passwordUpdateForm" action="{{ route('admin.password.update') }}" method="POST">
+                    <form id="passwordUpdateForm" action="{{ route('admin.password.update', auth()->user()) }}" method="POST">
                         @csrf
                         @method('PUT')
 

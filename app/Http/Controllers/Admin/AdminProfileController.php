@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 
 class AdminProfileController extends Controller
 {
@@ -80,6 +82,22 @@ class AdminProfileController extends Controller
 
     public function updatePasswordView(){
         return view('admin.profile.password_view');
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request, User $user){
+        // dd($user);
+        // Check if the current password matches
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'The provided password does not match your current password.']);
+        }
+
+        // Update the password
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('admin.profile')
+            ->with('success', 'Password has been updated successfully.');
     }
 
     /**

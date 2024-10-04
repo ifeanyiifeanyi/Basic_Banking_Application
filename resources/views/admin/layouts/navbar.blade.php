@@ -59,12 +59,15 @@
                     </div>
                     <a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="mdi mdi-account-circle m-r-5 text-muted"></i>
                         Profile</a>
-                    <a class="dropdown-item" href="#"><i class="mdi mdi-wallet m-r-5 text-muted"></i> My
-                        Wallet</a>
-                    <a class="dropdown-item" href="#"><span class="float-right badge badge-success">5</span><i
-                            class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i>
-                        Lock screen</a>
+                    <a class="dropdown-item" href="{{ route('profile.2fa') }}"><i class="mdi mdi-wallet m-r-5 text-muted"></i> Set 2Factor Auth</a>
+
+                    <a class="dropdown-item" href="{{ route('admin.update.password') }}">
+                        <i class="mdi mdi-settings m-r-5 text-muted"></i> Settings
+                    </a>
+
+                    <a class="dropdown-item" href="{{ route('admin.activity-log') }}"><i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i>
+                        Activity Log</a>
+
                     <div class="dropdown-divider"></div>
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
