@@ -26,12 +26,11 @@
             </li>
         </ul>
     </div>
-    
+
     <div class="sidebar-inner slimscrollleft">
 
         <div id="sidebar-menu">
             <ul>
-                <li class="menu-title">Main</li>
 
                 <li>
                     <a href="index.html" class="waves-effect">
@@ -43,12 +42,11 @@
                     <a href="calendar.html" class="waves-effect"><i class="dripicons-to-do"></i><span> Calendar </span></a>
                 </li>
 
-                <li class="menu-title">Components</li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-jewel"></i> <span> UI Elements </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-jewel"></i> <span> Bank Settings </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="ui-alerts.html">Alerts</a></li>
+                        <li><a href="{{ route('admin.currency.index') }}">Currency</a></li>
                         <li><a href="ui-alertify.html">Alertify</a></li>
                         <li><a href="ui-badge.html">Badge</a></li>
                         <li><a href="ui-buttons.html">Buttons</a></li>
