@@ -36,7 +36,7 @@
                             <td>{{ $currency->exchange_rate }}</td>
                             <td>
                                 <a href="{{route('admin.edit.currency', $currency)}}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="" method="POST" style="display: inline-block">
+                                <form action="{{ route('admin.currency.destroy', $currency) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Are you sure of this command')" type="submit" class="btn btn-sm btn-danger">Delete</button>

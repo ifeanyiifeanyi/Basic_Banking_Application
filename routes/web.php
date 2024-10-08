@@ -43,16 +43,17 @@ Route::prefix('admin')->middleware(['auth', 'role:admin', '2fa'])->group(functio
     Route::get('/activity-log', [ActivityLogController::class, 'index'])
         ->name('admin.activity-log');
 
-        Route::controller(AdminCurrencyController::class)->group(function(){
+    Route::controller(AdminCurrencyController::class)->group(function () {
         Route::get('/currency', 'index')->name('admin.currency.index');
         Route::get('/currency/create', 'create')->name('admin.currency.create');
         Route::post('/currency', 'store')->name('admin.currency.store');
         Route::get('/currency/{currency}', 'show')->name('admin.currency.show');
         Route::get('currency/edit/{currency}', 'edit')->name('admin.edit.currency');
         Route::put('currency/{currency}/update', 'update')->name('admin.update.currency');
-        });
-        // Route::delete('/currency/{currency}/del', 'destroy')->name('admin.currency.destroy');
-        // Route::delete('del-currency/{currency}', 'destroy')->name('admin.currency.destroy');
+    Route::delete('/currency/{currency}/del', 'destroy')->name('admin.currency.destroy');
+
+    });
+    // Route::delete('del-currency/{currency}', 'destroy')->name('admin.currency.destroy');
 
 });
 
