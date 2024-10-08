@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminUpdateCurrencyRequest;
 use App\Http\Requests\CurrencyRequest;
 use App\Models\Currency;
+use Exception;
 use Illuminate\Http\Request;
 
 class AdminCurrencyController extends Controller
@@ -50,15 +52,23 @@ class AdminCurrencyController extends Controller
      */
     public function edit(Currency $currency)
     {
-        //
+        return view('admin.currency.edit', ['currency' => $currency]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Currency $currency)
+    public function update(AdminUpdateCurrencyRequest $request, Currency $currency)
     {
-        //
+        // dd($request->validated());
+
+        try{
+            $currency->update($request->validated());
+            return redirect()->route('admin.currency.index')
+                ->with('success', 'Currency has been updated successfully.');
+        }catch(Exception $e){
+            return back()->withErrors(['error' => 'Failed to update currency.']);
+        }
     }
 
     /**
@@ -66,6 +76,12 @@ class AdminCurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
-        //
+        try{
+            $currency->delete();
+            return redirect()->route('admin.currency.index')
+                ->with('success', 'Currency has been deleted successfully.');
+        }catch(Exception $e){
+            return back()->withErrors(['error' => 'Failed to delete currency.']);
+        }
     }
 }

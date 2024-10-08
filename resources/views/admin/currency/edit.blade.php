@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Create Currency')
+@section('title', 'Edit Currency')
 
 @section('css')
 
@@ -16,69 +16,67 @@
         <div class="row">
             <div class="mx-auto col-md-8">
                 <div class="px-3 py-3 shadow card">
-                    <form method="POST" action="{{ route('admin.currency.store') }}">
+                    {{-- @dd($currency) --}}
+                    <form method="POST" action="{{ route('admin.update.currency', $currency) }}">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="code">Currency Code</label>
-                            <input type="text" id="code" name="code" class="form-control"  value="{{ old('code') }}">
+                            <input type="text" id="code" name="code" class="form-control"
+                                value="{{ old('code', $currency->code ?? '') }}">
                             @error('code')
                                 <div class="text-danger">
-                                   {{ $message }}
+                                    {{ $message }}
                                 </div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="symbol">Currency Symbol</label>
-                            <input type="text" id="symbol" name="symbol" class="form-control"  value="{{ old('symbol') }}">
+                            <input type="text" id="symbol" name="symbol" class="form-control"
+                                value="{{ old('symbol', $currency->symbol ?? '') }}">
                             @error('symbol')
                                 <div class="text-danger">
-                                   {{ $message }}
+                                    {{ $message }}
                                 </div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="currency">Currency Name</label>
-                            <input type="text" id="currency" name="currency" class="form-control"  value="{{ old('currency') }}">
+                            <input type="text" id="currency" name="currency" class="form-control"
+                                value="{{ old('currency', $currency->currency ?? '') }}">
                             @error('currency')
                                 <div class="text-danger">
-                                   {{ $message }}
+                                    {{ $message }}
                                 </div>
                             @enderror
 
                         </div>
                         <div class="form-group">
-                            <label for="interest_rate">Interest Rate</label>
-                            <input type="number" id="interest_rate" name="interest_rate" class="form-control"  value="{{ old('interest_rate') }}">
-                            @error('interest_rate')
-                            <div class="text-danger">
-                               {{ $message }}
-                            </div>
-                        @enderror
-
+                            <label for="exchange_rate">Interest Rate</label>
+                            <input type="number" id="exchange_rate" name="exchange_rate" class="form-control"
+                                value="{{ old('exchange_rate', $currency->exchange_rate ?? '') }}">
+                            @error('exchange_rate')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="is_active">Status</label>
-                            <select id="is_active" name="is_active" class="form-control" >
+                            <select id="is_active" name="is_active" class="form-control">
                                 <option value="" disabled selected>Select Status</option>
-                                <option{{ old('true') == 1 ? 'selected' : '' }} value="1">Active</option>
-                                <option {{ old('false') == 0 ? 'selected' : '' }} value="0">Inactive</option>
+                                <option{{ old('1') == $currency->is_active ? 'selected' : '' }} value="1">Active
+                                    </option>
+                                    <option {{ old('0') == $currency->is_active ? 'selected' : '' }} value="0">
+                                        Inactive</option>
                             </select>
                             @error('is_active')
                                 <div class="text-danger">
-                                   {{ $message }}
+                                    {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description" name="description" class="form-control" >{{ old('description') }}</textarea>
-                            @error('discription')
-                                <div class="text-danger">
-                                   {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-success">Create Currency</button>
+                        <button type="submit" class="btn btn-success">Update Currency</button>
                     </form>
                 </div>
             </div>

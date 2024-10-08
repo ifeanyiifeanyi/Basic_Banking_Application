@@ -24,12 +24,9 @@ class CurrencyRequest extends FormRequest
         return [
             'code' => ['required', 'string', 'unique:currencies,code'],
             'currency' => ['required', 'string', 'unique:currencies,currency'],
-            'interest_rate' => ['required', 'numeric'],
+            'exchange_rate' => ['required', 'numeric'],
             'symbol' => ['required', 'string', 'unique:currencies,symbol'],
-
-            'minimum_balance' => ['required', 'numeric'],
             'is_active' => ['required', 'boolean'],
-            'description' => ['nullable', 'string'],
         ];
     }
 
@@ -46,14 +43,10 @@ class CurrencyRequest extends FormRequest
             'currency.required' => 'Currency name is required',
             'currency.string' => 'Currency name must be a string',
             'currency.unique' => 'Currency name already exists',
-            'interest_rate.required' => 'Interest rate is required',
-            'interest_rate.numeric' => 'Interest rate must be a number',
-            'minimum_balance.required' => 'Minimum balance is required',
-            'minimum_balance.numeric' => 'Minimum balance must be a number',
+            'exchange_rate.required' => 'Interest rate is required',
+            'exchange_rate.numeric' => 'Interest rate must be a number',
             'is_active.required' => 'Status is required',
-            'is_active.boolean' => 'Status must be a boolean',
-            'description.nullable' => 'Description is optional',
-            'description.string' => 'Description must be a string',
+            'is_active.boolean' => 'Status is required',
 
         ];
     }
