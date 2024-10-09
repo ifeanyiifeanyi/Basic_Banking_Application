@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class AccountType extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
     protected $fillable = [
         'account_type',
         'code',
@@ -22,4 +25,12 @@ class AccountType extends Model
         'minimum_balance' => 'decimal:2',
         'interest_rate' => 'decimal:2'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['account_type', 'code', 'description', 'minimum_balance', 'interest_rate', 'is_active'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 }

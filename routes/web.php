@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\AdminAccountTypeController;
 use App\Http\Controllers\Admin\AdminCurrencyController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Member\MemberProfileController;
@@ -50,11 +51,18 @@ Route::prefix('admin')->middleware(['auth', 'role:admin', '2fa'])->group(functio
         Route::get('/currency/{currency}', 'show')->name('admin.currency.show');
         Route::get('currency/edit/{currency}', 'edit')->name('admin.edit.currency');
         Route::put('currency/{currency}/update', 'update')->name('admin.update.currency');
-    Route::delete('/currency/{currency}/del', 'destroy')->name('admin.currency.destroy');
-
+        Route::delete('/currency/{currency}/del', 'destroy')->name('admin.currency.destroy');
     });
-    // Route::delete('del-currency/{currency}', 'destroy')->name('admin.currency.destroy');
 
+    Route::controller(AdminAccountTypeController::class)->group(function(){
+        Route::get('/account-types', 'index')->name('admin.account-types');
+        Route::get('/account-types/create', 'create')->name('admin.account-types.create');
+        Route::post('/account-types', 'store')->name('admin.account-types.store');
+        Route::get('/account-types/{accountType}', 'show')->name('admin.account-types.show');
+        Route::get('/account-types/edit/{accountType}', 'edit')->name('admin.edit.account-types');
+        Route::put('/account-types/{accountType}/update', 'update')->name('admin.update.account-types');
+        Route::delete('/account-types/{accountType}/del', 'destroy')->name('admin.account-types.destroy');
+    });
 });
 
 Route::prefix('private')->middleware(['auth', 'role:member'])->group(function () {
