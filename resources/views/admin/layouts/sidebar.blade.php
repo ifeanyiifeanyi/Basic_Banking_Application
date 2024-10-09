@@ -47,6 +47,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ route('admin.currency.index') }}">Currency</a></li>
                         <li><a href="{{ route('admin.account-types') }}">Create Accounts</a></li>
+                        <li><a href="{{ route('banks.index') }}">Mamage Banks</a></li>
                     </ul>
                 </li>
 

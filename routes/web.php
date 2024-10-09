@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminBankController;
 use App\Http\Controllers\Admin\ActivityLogController;
-use App\Http\Controllers\Admin\AdminAccountTypeController;
-use App\Http\Controllers\Admin\AdminCurrencyController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminCurrencyController;
 use App\Http\Controllers\Member\MemberProfileController;
+use App\Http\Controllers\Admin\AdminAccountTypeController;
 use App\Http\Controllers\Admin\AdminTwoFactorAuthController;
 use App\Http\Controllers\DashboardController as MainDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -63,6 +64,35 @@ Route::prefix('admin')->middleware(['auth', 'role:admin', '2fa'])->group(functio
         Route::put('/account-types/{accountType}/update', 'update')->name('admin.update.account-types');
         Route::delete('/account-types/{accountType}/del', 'destroy')->name('admin.account-types.destroy');
     });
+
+    Route::controller(AdminBankController::class)->group(function () {
+        // Bank CRUD routes
+        Route::get('/banks', 'index')->name('banks.index');
+        Route::get('/banks/create', 'create')->name('banks.create');
+        Route::post('/banks', 'store')->name('banks.store');
+        Route::get('/banks/{bank}', 'show')->name('banks.show');
+        Route::get('/banks/{bank}/edit', 'edit')->name('banks.edit');
+        Route::put('/banks/{bank}', 'update')->name('banks.update');
+        Route::delete('/banks/{bank}', 'destroy')->name('banks.destroy');
+
+        // Additional admin routes
+        Route::get('/banks/{bank}/transactions', 'transactions')->name('banks.transactions');
+        Route::post('/banks/{bank}/toggle-status', 'toggleStatus')->name('banks.toggle-status');
+    });
+    // Route::controller(AdminBankRequirementController::class)->group(function () {
+    //     Route::post('/banks/{bank}/requirements', 'store')->name('banks.requirements.store');
+    //     Route::put('/banks/{bank}/requirements/{requirement}', 'update')->name('banks.requirements.update');
+    //     Route::delete('/banks/{bank}/requirements/{requirement}', 'destroy')->name('banks.requirements.destroy');
+    //     Route::post('/banks/{bank}/requirements/reorder', 'reorder')->name('banks.requirements.reorder');
+    // });
+
+    // // Transaction management routes
+    // Route::controller(AdminBankTransactionController::class)->group(function () {
+    //     Route::get('/transactions', 'index')->name('transactions.index');
+    //     Route::get('/transactions/{transaction}', 'show')->name('transactions.show');
+    //     Route::post('/transactions/{transaction}/approve', 'approve')->name('transactions.approve');
+    //     Route::post('/transactions/{transaction}/reject', 'reject')->name('transactions.reject');
+    // });
 });
 
 Route::prefix('private')->middleware(['auth', 'role:member'])->group(function () {
@@ -76,6 +106,19 @@ Route::prefix('private')->middleware(['auth', 'role:member'])->group(function ()
         Route::put('update-profile', 'update')->name('member.update-profile');
         Route::post('upload-avatar', 'uploadAvatar')->name('member.upload-avatar');
     });
+
+    // Route::controller(BankController::class)->group(function () {
+    //     Route::get('/banks', 'index')->name('banks.index');
+    //     Route::get('/banks/{bank}', 'show')->name('banks.show');
+    // });
+
+    // Route::controller(BankTransactionController::class)->group(function () {
+    //     // Transaction routes
+    //     Route::get('/banks/{bank}/transfer', 'create')->name('transactions.create');
+    //     Route::post('/banks/{bank}/transfer', 'store')->name('transactions.store');
+    //     Route::get('/transactions', 'index')->name('transactions.index');
+    //     Route::get('/transactions/{transaction}', 'show')->name('transactions.show');
+    // });
 });
 
 
