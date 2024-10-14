@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminCurrencyController;
 use App\Http\Controllers\Member\MemberProfileController;
 use App\Http\Controllers\Admin\AdminAccountTypeController;
 use App\Http\Controllers\Admin\AdminKycQuestionController;
+use App\Http\Controllers\Admin\AdminManageUsersController;
 use App\Http\Controllers\Admin\AdminTwoFactorAuthController;
 use App\Http\Controllers\DashboardController as MainDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -88,6 +89,15 @@ Route::prefix('admin')->middleware(['auth', 'role:admin', '2fa'])->group(functio
         Route::get('/kyc-questions/{kycQuestion}/edit', 'edit')->name('admin.kyc_questions.edit');
         Route::put('/kyc-questions/{kycQuestion}', 'update')->name('admin.kyc_questions.update');
         Route::delete('/kyc-questions/{kycQuestion}', 'destroy')->name('admin.kyc_questions.destroy');
+    });
+
+    Route::controller(AdminManageUsersController::class)->group(function(){
+        Route::get('/users', 'index')->name('admin.users.index');
+        // Route::get('/users/create', 'create')->name('admin.users.create');
+        // Route::post('/users', 'store')->name('admin.users.store');
+        // Route::get('/users/{user}/edit', 'edit')->name('admin.users.edit');
+        // Route::put('/users/{user}', 'update')->name('admin.users.update');
+        // Route::delete('/users/{user}', 'destroy')->name('admin.users.destroy');
     });
     // Route::controller(AdminBankRequirementController::class)->group(function () {
     //     Route::post('/banks/{bank}/requirements', 'store')->name('banks.requirements.store');

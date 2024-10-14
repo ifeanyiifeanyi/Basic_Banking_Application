@@ -40,7 +40,12 @@
                 <li>
                     <a href="calendar.html" class="waves-effect"><i class="dripicons-to-do"></i><span> All Transactions </span></a>
                 </li>
-
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Users </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('admin.users.index') }}">View Users</a></li>
+                    </ul>
+                </li>
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-jewel"></i> <span> Bank Settings </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
