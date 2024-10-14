@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\KycQuestionService;
 use App\Http\Requests\StoreKycQuestionRequest;
+use App\Http\Requests\UpdateKycQuestionRequest;
 
 class AdminKycQuestionController extends Controller
 {
@@ -21,13 +22,47 @@ class AdminKycQuestionController extends Controller
         return view('admin.kyc_questions.index', compact('questions'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.kyc_questions.create');
     }
 
     public function store(StoreKycQuestionRequest $request)
     {
-        $this->kycQuestionService->createQuestion($request->validated());
+        $data = $request->validated();
+
+        // Convert options array to JSON if present
+        if (isset($data['options'])) {
+            $data['options'] = json_encode($data['options']);
+        }
+
+        $this->kycQuestionService->createQuestion($data);
         return redirect()->route('admin.kyc_questions.index')->with('success', 'Question created successfully.');
+    }
+
+    public function edit($id)
+    {
+        $question = $this->kycQuestionService->getQuestionById($id);
+        return view('admin.kyc_questions.edit', compact('question'));
+    }
+
+    public function update(UpdateKycQuestionRequest $request, $id)
+    {
+        $question = $this->kycQuestionService->getQuestionById($id);
+        $data = $request->validated();
+
+        // Convert options array to JSON if present
+        if (isset($data['options'])) {
+            $data['options'] = json_encode($data['options']);
+        }
+
+        $this->kycQuestionService->updateQuestion($question, $data);
+        return redirect()->route('admin.kyc_questions.index')->with('success', 'Question updated successfully.');
+    }
+
+    public function destroy($id){
+        $question = $this->kycQuestionService->getQuestionById($id);
+        $this->kycQuestionService->deleteQuestion($question);
+        return redirect()->route('admin.kyc_questions.index')->with('success', 'Question deleted successfully.');
     }
 }

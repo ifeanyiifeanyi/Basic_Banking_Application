@@ -21,6 +21,10 @@ class User extends Authenticatable
             ->dontSubmitEmptyLogs();
     }
 
+    public function kycResponse(){
+        return $this->hasOne(KycResponse::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

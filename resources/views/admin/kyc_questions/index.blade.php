@@ -31,12 +31,12 @@
                             <td>{{ $question->question }}</td>
                             <td>{{ $question->response_type }}</td>
                             <td>
-                                <a href=""
+                                <a href="{{ route('admin.kyc_questions.edit', $question) }}"
                                     class="btn btn-sm btn-primary">Edit</a>
-                                <form action="" method="POST" style="display: inline-block">
+                                <form action="{{ route('admin.kyc_questions.destroy', $question) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <button onclick="return confirm('Are you sure of this action ?')" type="submit" class="btn btn-sm btn-danger">Delete</button>
                                 </form>
                             </td>
                         </tr>

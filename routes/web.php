@@ -85,10 +85,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin', '2fa'])->group(functio
         Route::get('/kyc-questions', 'index')->name('admin.kyc_questions.index');
         Route::get('/kyc-questions/create', 'create')->name('admin.kyc_questions.create');
         Route::post('/kyc-questions', 'store')->name('admin.kyc_questions.store');
-        // Route::get('/kyc-questions/{kycQuestion}', 'show')->name('kyc-questions.show');
-        // Route::get('/kyc-questions/{kycQuestion}/edit', 'edit')->name('kyc-questions.edit');
-        // Route::put('/kyc-questions/{kycQuestion}', 'update')->name('kyc-questions.update');
-        // Route::delete('/kyc-questions/{kycQuestion}', 'destroy')->name('kyc-questions.destroy');
+        Route::get('/kyc-questions/{kycQuestion}/edit', 'edit')->name('admin.kyc_questions.edit');
+        Route::put('/kyc-questions/{kycQuestion}', 'update')->name('admin.kyc_questions.update');
+        Route::delete('/kyc-questions/{kycQuestion}', 'destroy')->name('admin.kyc_questions.destroy');
     });
     // Route::controller(AdminBankRequirementController::class)->group(function () {
     //     Route::post('/banks/{bank}/requirements', 'store')->name('banks.requirements.store');

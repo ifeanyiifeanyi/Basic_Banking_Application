@@ -54,8 +54,9 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-blog"></i><span> KYC </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('admin.kyc_questions.index') }}">Create Questions</a></li>
-                        
+                        <li><a href="{{ route('admin.kyc_questions.index') }}">View Questions</a></li>
+                        <li><a href="{{ route('admin.kyc_questions.create') }}">Create Question</a></li>
+
                     </ul>
                 </li>
 
