@@ -47,21 +47,15 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ route('admin.currency.index') }}">Currency</a></li>
                         <li><a href="{{ route('admin.account-types') }}">Create Accounts</a></li>
-                        <li><a href="{{ route('banks.index') }}">Mamage Banks</a></li>
+                        <li><a href="{{ route('banks.index') }}">Manage Banks</a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-blog"></i><span> Forms </span> <span class="float-right badge badge-pill badge-info">8</span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-blog"></i><span> KYC </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="form-advanced.html">Form Advanced</a></li>
-                        <li><a href="form-elements.html">Form Elements</a></li>
-                        <li><a href="form-editors.html">Form Editors</a></li>
-                        <li><a href="form-uploads.html">Form File Upload</a></li>
-                        <li><a href="form-mask.html">Form Mask</a></li>
-                        <li><a href="form-summernote.html">Summernote</a></li>
-                        <li><a href="form-validation.html">Form Validation</a></li>
-                        <li><a href="form-xeditable.html">Form Xeditable</a></li>
+                        <li><a href="{{ route('admin.kyc_questions.index') }}">Create Questions</a></li>
+                        
                     </ul>
                 </li>
 

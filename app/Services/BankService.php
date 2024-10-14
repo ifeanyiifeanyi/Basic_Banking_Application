@@ -41,11 +41,31 @@ class BankService
         });
     }
 
+    // protected function updateRequirements(Bank $bank, array $requirements)
+    // {
+    //     $bank->requirements()->delete();
+
+    //     $requirementsData = collect($requirements)->map(function ($requirement, $index) {
+    //         return $requirement + ['order' => $index];
+    //     })->all();
+
+    //     $bank->requirements()->createMany($requirementsData);
+    // }
+
     protected function updateRequirements(Bank $bank, array $requirements)
     {
         $bank->requirements()->delete();
 
         $requirementsData = collect($requirements)->map(function ($requirement, $index) {
+            // Handle field options for select type
+            if ($requirement['field_type'] === 'select' && isset($requirement['field_options'])) {
+                // Convert textarea lines to array
+                $options = array_filter(explode("\n", $requirement['field_options']));
+                $requirement['field_options'] = $options;
+            } else {
+                $requirement['field_options'] = null;
+            }
+
             return $requirement + ['order' => $index];
         })->all();
 

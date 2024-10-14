@@ -18,6 +18,7 @@ class AdminBankController extends Controller
 
     public function index()
     {
+        // dd("on");
         $banks = Bank::with('requirements')->get();
         return view('admin.banks.index', compact('banks'));
     }
@@ -30,7 +31,7 @@ class AdminBankController extends Controller
     public function store(BankRequest $request)
     {
         $bank = $this->bankService->createBank($request->validated());
-        return redirect()->route('admin.banks.index')->with('success', 'Bank created successfully.');
+        return redirect()->route('banks.index')->with('success', 'Bank created successfully.');
     }
 
     public function show(Bank $bank)
@@ -48,12 +49,12 @@ class AdminBankController extends Controller
     public function update(BankRequest $request, Bank $bank)
     {
         $this->bankService->updateBank($bank, $request->validated());
-        return redirect()->route('admin.banks.index')->with('success', 'Bank updated successfully.');
+        return redirect()->route('banks.index')->with('success', 'Bank updated successfully.');
     }
 
     public function destroy(Bank $bank)
     {
         $this->bankService->deleteBank($bank);
-        return redirect()->route('admin.banks.index')->with('success', 'Bank deleted successfully.');
+        return redirect()->route('banks.index')->with('success', 'Bank deleted successfully.');
     }
 }

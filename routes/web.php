@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminCurrencyController;
 use App\Http\Controllers\Member\MemberProfileController;
 use App\Http\Controllers\Admin\AdminAccountTypeController;
+use App\Http\Controllers\Admin\AdminKycQuestionController;
 use App\Http\Controllers\Admin\AdminTwoFactorAuthController;
 use App\Http\Controllers\DashboardController as MainDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -78,6 +79,16 @@ Route::prefix('admin')->middleware(['auth', 'role:admin', '2fa'])->group(functio
         // Additional admin routes
         Route::get('/banks/{bank}/transactions', 'transactions')->name('banks.transactions');
         Route::post('/banks/{bank}/toggle-status', 'toggleStatus')->name('banks.toggle-status');
+    });
+
+    Route::controller(AdminKycQuestionController::class)->group(function(){
+        Route::get('/kyc-questions', 'index')->name('admin.kyc_questions.index');
+        Route::get('/kyc-questions/create', 'create')->name('admin.kyc_questions.create');
+        Route::post('/kyc-questions', 'store')->name('admin.kyc_questions.store');
+        // Route::get('/kyc-questions/{kycQuestion}', 'show')->name('kyc-questions.show');
+        // Route::get('/kyc-questions/{kycQuestion}/edit', 'edit')->name('kyc-questions.edit');
+        // Route::put('/kyc-questions/{kycQuestion}', 'update')->name('kyc-questions.update');
+        // Route::delete('/kyc-questions/{kycQuestion}', 'destroy')->name('kyc-questions.destroy');
     });
     // Route::controller(AdminBankRequirementController::class)->group(function () {
     //     Route::post('/banks/{bank}/requirements', 'store')->name('banks.requirements.store');
