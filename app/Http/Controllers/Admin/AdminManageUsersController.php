@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class AdminManageUsersController extends Controller
 {
+    
     private $bankUserService;
 
     public function __construct(BankUserService $bankUserService){
